@@ -41,8 +41,6 @@ COMPONENT_CLASSIFICATION= Development/Python
 COMPONENT_LICENSE=      PSF-2.0
 COMPONENT_LICENSE_FILE=	LICENSE
 
-CONFIGURE_FIX_LIBTOOL_RPATH = no
-
 # Define to avoid modifications at each major bump
 COMPONENT_PYVER= 3.12
 
