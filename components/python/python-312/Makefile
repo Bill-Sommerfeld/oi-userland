@@ -125,7 +125,6 @@ CONFIGURE_OPTIONS += XPROFILE_DIR="$(XPROFILE_DIR)"
 
 COMPONENT_BUILD_ENV += DFLAGS="-$(BITS)"
 COMPONENT_BUILD_ENV += XPROFILE_DIR="$(XPROFILE_DIR)"
-COMPONENT_BUILD_ENV += PATH="$(PATH)"
 
 # Some tests have non-ASCII characters encoded for international domain names;
 # the publish step will fail in 'pkgdepend generate' without this:
@@ -148,7 +147,6 @@ COMPONENT_INSTALL_ENV  += CC="$(CC)"
 COMPONENT_INSTALL_ENV  += CXX="$(CXX)"
 COMPONENT_INSTALL_ENV  += CFLAGS="$(CFLAGS)"
 COMPONENT_INSTALL_ENV  += LDFLAGS="$(LDFLAGS)"
-COMPONENT_INSTALL_ENV  += PATH="$(PATH)"
 COMPONENT_INSTALL_ARGS += -e
 
 # Strip build machine paths from _sysconfigdata.py & config/Makefile,
@@ -166,7 +164,6 @@ COMPONENT_POST_INSTALL_ACTION= \
 # one test.  For example:
 # $ TESTOPTS_PYTHON_TEST=test_sys
 TESTOPTS_PYTHON_TEST=
-COMPONENT_TEST_ENV= PATH="$(PATH)"
 
 # Using "-uall,-network" ensures all tests are run except the network tests.
 # The network tests contain many expected failures when run behind a firewall.
