@@ -1,0 +1,46 @@
+commit b1a9444e1f5d06443e3976a9de97f58b87734085 (HEAD -> bug16879, governator/bug16879)
+Author: Bill Sommerfeld <sommerfeld@hamachi.org>
+Date:   Sat Nov 2 13:10:22 2024 -0700
+
+    16879 pkglint fails on openindiana with more unexpected /32 packages
+    
+    Change-Id: I42ed338dea600ff27fa685aa743f6a972c8f07d8
+
+diff --git a/exception_lists/packaging.deps b/exception_lists/packaging.deps
+index 6aee0aac35..85d869f657 100644
+--- a/exception_lists/packaging.deps
++++ b/exception_lists/packaging.deps
+@@ -12,7 +12,6 @@ pkg:/gnome/zenity
+ pkg:/library/expat
+ pkg:/library/glib2
+ pkg:/library/libxml2
+-pkg:/library/libxml2/32
+ pkg:/library/nspr
+ pkg:/library/security/openssl
+ pkg:/library/security/openssl-10
+diff --git a/usr/src/pkg/Makefile b/usr/src/pkg/Makefile
+index e58f930fc3..4f16af28ed 100644
+--- a/usr/src/pkg/Makefile
++++ b/usr/src/pkg/Makefile
+@@ -49,6 +49,12 @@ SUPPRESSPKGDEP= false
+ #
+ PKGDEBUG= @
+ 
++#
++# If the distribution you're building on has package variants with a different
++# suffix, set this in your build environment.
++#
++PKGEXTRASUFFIX=
++
+ #
+ # Cross platform packaging notes
+ #
+@@ -694,6 +700,8 @@ pkglint: makesilent
+ 	$(PKGDEBUG)$(CP) etc/pkglintrc $(PDIR)/pkglintrc
+ 	$(PKGDEBUG)$(GREP) pkg:/ $(CODEMGR_WS)/exception_lists/packaging.deps \
+ 	    | sed 's/.*/    & \\/' >> $(PDIR)/pkglintrc
++	$(PKGDEBUG)$(GREP) pkg:/ $(CODEMGR_WS)/exception_lists/packaging.deps \
++	    | sed 's;.*;    &$(PKGEXTRASUFFIX) \\;' >> $(PDIR)/pkglintrc
+ 	$(PKGDEBUG)echo "    pkg:/runtime/python$(PYTHON3_PKGVERS) \\" \
+ 	     >> $(PDIR)/pkglintrc
+ 	$(PKGDEBUG)$(BUILDPY3b) \

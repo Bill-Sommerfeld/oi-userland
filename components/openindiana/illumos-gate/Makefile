@@ -103,6 +103,7 @@ $(BUILD_DIR)/$(MACH)/.built: $(SOURCE_DIR)/.patched $(BUILD_DIR)/runtime-perl.p5
 	  echo export DEP_RUNTIME_PERL="$(BUILD_DIR)/runtime-perl.p5m"; \
 	  echo export BUILDPERL32=\"#\"; \
 	  echo export PKGVERS_BRANCH=$(ONNV_BUILDNUM); \
+	  echo export PKGEXTRASUFFIX=/32; \
 	  echo export BOOTBANNER1=\"$(DISTRIBUTION_NAME) $(DISTRIBUTION_VERSION) Version ^v ^w-bit\") > \
 	  illumos.sh && \
 	  time $(ENV) ./usr/src/tools/scripts/nightly -V $(shell cd $(SOURCE_DIR) && git log -1 --format=illumos-%h) illumos.sh
